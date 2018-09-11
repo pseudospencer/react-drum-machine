@@ -1,0 +1,17 @@
+.drum-pad {
+    color: white;
+    background-color: blue;
+
+    display: flex;
+    width: 100px;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.drum-pad:hover {
+    color: blue;
+    background-color: white;
+    border: 3px solid blue;
+}

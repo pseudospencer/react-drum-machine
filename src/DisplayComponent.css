@@ -1,0 +1,7 @@
+#display {
+    border: 1px dashed red;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
