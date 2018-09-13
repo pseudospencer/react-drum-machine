@@ -1,6 +1,15 @@
 {
-  "main.css": "static/css/main.2e40ccf1.css",
-  "main.css.map": "static/css/main.2e40ccf1.css.map",
-  "main.js": "static/js/main.a8a784b8.js",
-  "main.js.map": "static/js/main.a8a784b8.js.map"
+  "main.css": "static/css/main.5a1a3ac9.css",
+  "main.css.map": "static/css/main.5a1a3ac9.css.map",
+  "main.js": "static/js/main.798be6c7.js",
+  "main.js.map": "static/js/main.798be6c7.js.map",
+  "static/media/clap-808.wav": "static/media/clap-808.39f9581a.wav",
+  "static/media/cowbell-808.wav": "static/media/cowbell-808.470b5edb.wav",
+  "static/media/crash-808.wav": "static/media/crash-808.de6f53e5.wav",
+  "static/media/hihat-808.wav": "static/media/hihat-808.46ba2a48.wav",
+  "static/media/kick-808.wav": "static/media/kick-808.550be808.wav",
+  "static/media/openhat-808.wav": "static/media/openhat-808.056a627a.wav",
+  "static/media/perc-808.wav": "static/media/perc-808.2a6bb6f5.wav",
+  "static/media/snare-808.wav": "static/media/snare-808.80c4129b.wav",
+  "static/media/tom-808.wav": "static/media/tom-808.446e78dd.wav"
 }
