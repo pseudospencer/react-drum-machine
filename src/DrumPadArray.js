@@ -1,16 +1,20 @@
 import React, { Component } from "react";
 import DrumPad from "./DrumPadComponent";
+import "./DrumPadArray.css"
 
 class DrumPadArray extends Component {
-    constructor(props) {
-        super(props)
-    }
-    renderDrumPad(k) {
+    renderPad(k) {
+        const id = this.props.keysToSampleType[k];
+        const sampleName = this.props.kit[id];
+        const src = this.props.samples[sampleName];
+
         return (
             <DrumPad
+                key={k}
                 assignedKey={k}
-                id={this.props.keysToSampleType[k]}
-                clipSrc={this.props.sampleDir+this.props.keysToSampleType[k]}
+                id={id}
+                clipSrc={src}
+                onClick={() => this.props.handleClick(k, sampleName)}
             />
         );
     }
@@ -21,7 +25,8 @@ class DrumPadArray extends Component {
         for (let r = 0; r < 3; r++) {
             let pads = [];
             for (let c = 0; c < 3; c++) {
-                pads.push(this.renderDrumPad(keyMapping[3 * r + c]))
+                const keyAssignment = keyMapping[3 * r + c];
+                pads.push(this.renderPad(keyAssignment));
             }
             rows.push(<div className="pad-row">{pads}</div>);
         }

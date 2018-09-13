@@ -1,0 +1,5 @@
+#drum-machine {
+    background-color: lightgrey;
+    display: flex;
+    flex-direction: row;
+}

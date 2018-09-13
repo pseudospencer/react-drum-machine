@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
+
+// Components
 import Display from "./DisplayComponent";
 import DrumPadArray from "./DrumPadArray";
+
+// Styling
+import "./DrumMachine.css";
+
+// Samples, kits
+import samples from "./KitSamples";
+import kits from "./Kits";
 
 class DrumMachine extends Component {
     constructor(props) {
@@ -13,44 +22,71 @@ class DrumMachine extends Component {
                 "Z" : "kick", "X" : "snare", "C" : "hihat"
             },
             selectedKit : "kit_808",
-            kitSamples : {
-                kit_808 : {
-                    clap : "clap-808.wav",
-                    cowbell : "cowbell-808.wav",
-                    crash : "crash-808.wav",
-                    hihat : "hihat-808.wav",
-                    kick : "kick-808.wav",
-                    openhat : "openhat-808.wav",
-                    perc : "perc-808.wav",
-                    snare : "snare-808.wav",
-                    tom : "tom-808.wav"
-                },
-            },
+            playing : null,
         };
+        this.drumMachineNode = React.createRef();
+        this.handleKeyPress = this.handleKeyPress.bind(this);
+    }
+    focusMe() {
+        this.drumMachineNode.current.focus();
+    }
+    componentDidMount() {
+        this.focusMe();
+    }
+    componentDidUpdate() {
+        this.focusMe();
+    }
+    restartClipAndUpdateStateWithSampleName(clip, sampleName) {
+        clip.pause();
+        clip.currentTime = 0;
+        clip.play();
+
+        this.setState({
+            playing : sampleName,
+        });
+    }
+    handleClick(audioElId, sampleName) {
+        const clip = document.getElementById(audioElId);
+
+        this.restartClipAndUpdateStateWithSampleName(clip, sampleName);
+    }
+    handleKeyPress(e) {
+        const key = e.key.toUpperCase();
+
+        if ( key in this.state.keysToSampleType) {
+            const clip = document.getElementById(key);
+            const sampleName = kits[this.state.selectedKit][this.state.keysToSampleType[key]];
+
+            this.restartClipAndUpdateStateWithSampleName(clip, sampleName);
+        }
+
     }
     render() {
         const keyMappingOrder = this.state.keyMappingOrder;
         const keysToSampleType = this.state.keysToSampleType;
-        const currentKit = this.state.selectedKit;
-        const currentKitSamples = this.state.kitSamples[currentKit];
-        const currentSampleDir = "./samples/" + currentKit + "/";
+        const kit = kits[this.state.selectedKit];
 
         return (
-            <div id="drum-machine">
+            <div id="drum-machine"
+                ref={this.drumMachineNode}
+                onKeyPress={ (event) => this.handleKeyPress(event) }
+                tabIndex="0"
+            >
                 <div className="drum-pad-container">
                     <DrumPadArray
                         keyMappingOrder={keyMappingOrder}
                         keysToSampleType={keysToSampleType}
-                        kitSamples={currentKitSamples}
-                        sampleDir={currentSampleDir}
+                        samples={samples}
+                        kit={kit}
+                        handleClick={(audioElId, sampleName) => this.handleClick(audioElId, sampleName)}
                     />
                 </div>
                 <div className="display-container">
-                    <Display clip="x-clip"/>
+                    <Display
+                        clip={this.state.playing != null ? this.state.playing : kit.displayName}
+                    />
                 </div>
-                <div className="controls-container">
-
-                </div>
+                {/* <div className="controls-container"></div> */}
             </div>
         );
     }
