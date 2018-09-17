@@ -11,9 +11,8 @@ import "./DrumMachine.css";
 import samples from "./KitSamples";
 import kits from "./Kits";
 
-
+// Lookups
 const keyMappingOrder = ["Q", "W", "E", "A", "S", "D", "Z", "X", "C"];
-
 const keysToSampleType = {
     "Q" : "crash", "W" : "perc", "E" : "cowbell",
     "A" : "tom", "S" : "clap", "D" : "openhat",
@@ -65,26 +64,36 @@ class DrumMachine extends Component {
         const kit = kits[this.state.selectedKit];
 
         return (
-            <div id="drum-machine"
-                ref={this.drumMachineNode}
-                onKeyPress={ (event) => this.handleKeyPress(event) }
-                tabIndex="0"
-            >
-                <div className="drum-pad-container">
-                    <DrumPadArray
-                        keyMappingOrder={keyMappingOrder}
-                        keysToSampleType={keysToSampleType}
-                        samples={samples}
-                        kit={kit}
-                        handleClick={(audioElId, sampleName) => this.handleClick(audioElId, sampleName)}
-                    />
+            <div id="drum-machine-wrapper">
+                <div id="drum-machine"
+                    ref={this.drumMachineNode}
+                    onKeyPress={ (event) => this.handleKeyPress(event) }
+                    tabIndex="0"
+                >
+                    <div className="title">
+                        <h1>Beat Dr. 1000</h1>
+                    </div>
+                    <div className="drum-pad-container">
+                        <DrumPadArray
+                            keyMappingOrder={keyMappingOrder}
+                            keysToSampleType={keysToSampleType}
+                            samples={samples}
+                            kit={kit}
+                            handleClick={(audioElId, sampleName) => this.handleClick(audioElId, sampleName)}
+                        />
+                    </div>
+                    <div className="display-container">
+                        <Display
+                            clip={kit.displayName}
+                            label="kit"
+                        />
+                        <Display
+                            clip={this.state.playing != null ? this.state.playing : ''}
+                            label="sample"
+                        />
+                    </div>
+                    {/* <div className="controls-container"></div> */}
                 </div>
-                <div className="display-container">
-                    <Display
-                        clip={this.state.playing != null ? this.state.playing : kit.displayName}
-                    />
-                </div>
-                {/* <div className="controls-container"></div> */}
             </div>
         );
     }

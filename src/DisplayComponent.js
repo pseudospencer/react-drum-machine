@@ -4,7 +4,13 @@ import "./DisplayComponent.css"
 function Display(props) {
     return(
         <div id="display">
-            <p>{props.clip}</p>
+            <div className="display-screen">
+                <p>{props.clip}</p>
+            </div>
+            <div className="display-label">
+                <p>{props.label}</p>
+            </div>
+            {/* <div className="display-buttons"></div> */}
         </div>
     );
 }

@@ -1,17 +1,30 @@
 .drum-pad {
-    color: white;
-    background-color: blue;
+    flex: 1;
+    min-width: 112px;
+    min-height: 112px;
+    margin: 8px;
+
+    font-size: 24px;
+    color: var(--label-white-color);
+
+    background-color: var(--base-gray-color);
+    box-sizing: border-box;
+    border: 4px solid var(--accent-purple-color);
+    border-radius: 4px;
 
     display: flex;
-    width: 100px;
-    height: 100px;
-    margin: 5px;
     justify-content: center;
     align-items: center;
 }
 
 .drum-pad:hover {
-    color: blue;
-    background-color: white;
-    border: 1px solid blue;
+    color: var(--accent-teal-color);
+    /* border-color: var(--accent-teal-color); */
+    /* box-shadow: 0 0 16px var(--accent-teal-color); */
+}
+
+.drum-pad.triggered {
+    border-color: var(--accent-teal-color);
+
+    box-shadow: 0 0 16px var(--accent-teal-color);
 }
