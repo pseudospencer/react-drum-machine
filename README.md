@@ -3,6 +3,7 @@
 This application is a simple drum machine that I built while working towards the Free Code Camp Frontend Libraries Certification. You can see the [Project Requirements](https://learn.freecodecamp.org/front-end-libraries/front-end-libraries-projects/build-a-drum-machine) here.
 
 ## Tech Stack
+
 I bootstrapped the application with with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 

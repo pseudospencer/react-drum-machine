@@ -11,30 +11,30 @@ import "./DrumMachine.css";
 import samples from "./KitSamples";
 import kits from "./Kits";
 
+
+const keyMappingOrder = ["Q", "W", "E", "A", "S", "D", "Z", "X", "C"];
+
+const keysToSampleType = {
+    "Q" : "crash", "W" : "perc", "E" : "cowbell",
+    "A" : "tom", "S" : "clap", "D" : "openhat",
+    "Z" : "kick", "X" : "snare", "C" : "hihat"
+};
+
 class DrumMachine extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            keyMappingOrder : ["Q", "W", "E", "A", "S", "D", "Z", "X", "C"],
-            keysToSampleType: {
-                "Q" : "crash", "W" : "perc", "E" : "cowbell",
-                "A" : "tom", "S" : "clap", "D" : "openhat",
-                "Z" : "kick", "X" : "snare", "C" : "hihat"
-            },
             selectedKit : "kit_808",
             playing : null,
         };
         this.drumMachineNode = React.createRef();
         this.handleKeyPress = this.handleKeyPress.bind(this);
     }
-    focusMe() {
-        this.drumMachineNode.current.focus();
-    }
     componentDidMount() {
-        this.focusMe();
+        document.addEventListener("keydown", this.handleKeyPress );
     }
-    componentDidUpdate() {
-        this.focusMe();
+    componentWillUnmount() {
+        document.removeEventListener("keydown", this.handleKeyPress() );
     }
     restartClipAndUpdateStateWithSampleName(clip, sampleName) {
         clip.pause();
@@ -53,17 +53,15 @@ class DrumMachine extends Component {
     handleKeyPress(e) {
         const key = e.key.toUpperCase();
 
-        if ( key in this.state.keysToSampleType) {
+        if ( key in keysToSampleType) {
             const clip = document.getElementById(key);
-            const sampleName = kits[this.state.selectedKit][this.state.keysToSampleType[key]];
+            const sampleName = kits[this.state.selectedKit][keysToSampleType[key]];
 
             this.restartClipAndUpdateStateWithSampleName(clip, sampleName);
         }
 
     }
     render() {
-        const keyMappingOrder = this.state.keyMappingOrder;
-        const keysToSampleType = this.state.keysToSampleType;
         const kit = kits[this.state.selectedKit];
 
         return (
